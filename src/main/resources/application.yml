@@ -1,0 +1,46 @@
+server:
+  port: 9000
+spring:
+  profiles:
+    active: local
+    group:
+      "local": "file-logging,console-logging,performance-logging"
+      "prod": "file-logging"
+  application:
+    name: spring-playground-2
+  jpa:
+    hibernate:
+      format_sql: true
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:13306/test
+    username: root
+    password: 1234
+    hikari:
+      maximum-pool-size: 40
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9101
+    schema-registry:
+      url: http://127.0.0.1:8081
+
+  logging:
+    level:
+      org:
+        springframework:
+          kafka: DEBUG
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info

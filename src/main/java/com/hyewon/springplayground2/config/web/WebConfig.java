@@ -29,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new XssFormHttpMessageConverter());
         converters.add(jsonEscapeConverter());
     }
 
@@ -38,4 +39,8 @@ public class WebConfig implements WebMvcConfigurer {
         copy.getFactory().setCharacterEscapes(new HtmlCharacterEscapes());
         return new MappingJackson2HttpMessageConverter(copy);
     }
+
+
+
+
 }
